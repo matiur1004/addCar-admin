@@ -1,0 +1,71 @@
+<!--&lt;!&ndash; UI for UserProfileEditComponent-->
+
+<!-- Initially powered by Stantum Angular Utils.-->
+<!-- Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation &ndash;&gt;-->
+
+<h4></h4>
+<div>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="name" class="required">First Name</label>
+        <input class="form-control" type="text" formControlName="firstName" id="name" placeholder="" maxlength="50"
+               [ngClass]="{ 'is-invalid': submitted && fields.firstName.errors, 'is-valid': submitted && !fields.firstName.errors }"/>
+        <div *ngIf="submitted && fields.firstName.errors" class="invalid-feedback">
+          <div *ngIf="fields.firstName.errors.required">First Name is required.</div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="name" class="required">Last Name</label>
+        <input class="form-control" type="text" formControlName="lastName" id="name" placeholder="" maxlength="50"
+               [ngClass]="{ 'is-invalid': submitted && fields.lastName.errors, 'is-valid': submitted && !fields.lastName.errors }"/>
+        <div *ngIf="submitted && fields.lastName.errors" class="invalid-feedback">
+          <div *ngIf="fields.lastName.errors.required">Last Name is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="email" class="required">Email</label>
+        <input class="form-control" type="text" formControlName="email" id="email" placeholder="" maxlength="255"
+               [ngClass]="{ 'is-invalid': submitted && fields.email.errors, 'is-valid': submitted && !fields.email.errors }"/>
+        <div *ngIf="submitted && fields.email.errors" class="invalid-feedback">
+          <div *ngIf="fields.email.errors.required">Email is required.</div>
+          <div *ngIf="fields.email.errors.email">Email is invalid email.</div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="alternativeEmail" [ngClass]="{required: isAltEmailRequired}">Alternative Email</label>
+        <input class="form-control" type="text" formControlName="alternativeEmail" id="alternativeEmail"
+               placeholder="Alternative Email" maxlength="255"
+               [ngClass]="{ 'is-invalid': submitted && fields.alternativeEmail.errors, 'is-valid': submitted && !fields.alternativeEmail.errors }" />
+        <div *ngIf="submitted && fields.alternativeEmail.errors" class="invalid-feedback">
+          <div *ngIf="fields.alternativeEmail.errors.required">Alternative email is required.</div>
+          <div *ngIf="fields.alternativeEmail.errors.email">Email format is invalid.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="telephone_number" class="required">Telephone Number</label>
+        <input appLimitInput regExpType="phone" class="form-control" type="text" formControlName="telephone"
+               id="address" placeholder="Telephone number" maxlength="30"
+               [ngClass]="{ 'is-invalid': submitted && fields.telephone.errors, 'is-valid': submitted && !fields.telephone.errors }"/>
+        <div *ngIf="submitted && fields.telephone.errors"
+             class="invalid-feedback">
+          <div *ngIf="fields.telephone.errors.required">Telephone number is required.</div>
+          <div *ngIf="fields.telephone.errors.phonenumber">Telephone number is invalid.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-4">
+        <label for="correspondenceEmail">Correspondence Email</label>
+        <div *ngFor="let item of mailAddressTypes | mailTypeTranslate" class="form-check">
+          <input type="radio"  class="form-check-input " checked formControlName="correspondenceEmail"
+                style="accent-color:black" [value]="item.index">{{item.name}}  
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

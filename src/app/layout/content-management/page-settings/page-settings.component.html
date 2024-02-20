@@ -1,0 +1,66 @@
+<form class="needs-validation" novalidate [formGroup]="formGroup" class="overflow-hidden d-flex" style="height: 100%; flex-direction: column;">
+  <div *ngIf="false" class="form-group row">
+    <label for="language" class="col-sm-3 col-form-label">Country</label>
+    <div class="col-sm-9">
+      <select class="form-control" formControlName="country" id="country">
+        <option *ngFor="let item of countrySource" [ngValue]="item.uid">{{item.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <div class="form-group row">
+      <label for="language" class="col-sm-3 col-form-label">Language</label>
+      <div class="col-sm-9">
+        <select class="form-control" formControlName="language" id="language">
+          <option *ngFor="let item of languageSource" [ngValue]="item.uid">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="isLabelsList==true" class="form-group row">
+      <div class="col-sm-12">
+        <button class="btn btn-primary" type="button" (click)="generateLinkdialog()" [disabled]="!countVal">Generate link for inerpreter</button>
+      </div>
+    </div>
+    <div  *ngIf="isLabelsList==false" class="form-group row">
+      <div class="col-sm-12">
+        <button class="btn btn-primary" type="button" (click)="openDialog()" [disabled]="!newPage">Generate link for inerpreter</button>
+      </div>
+    </div>
+    <div class="form-group row" style="overflow-y: auto; max-height: 350px; height: 100%; padding-top: 4px; padding-bottom: 4px;">
+      <div class="col-sm-12 pb-1 d-flex justify-content-between pr-4" *ngFor="let language of translateLanguageSource; let i = index;">
+        <a href="javascript:void(0);" class="mr-3" (click)="removeLanguage(language, i)"><i class="fas fa-times"></i></a>
+        <span class="fw-medium fs-5" style="min-width: 90px;">{{language.name}}</span>
+        <div class="d-flex align-items-center mr-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="flexCheckDefault" [checked]="language.isTranslate" (click)="onChangeSelection($event, language, 'translate')">
+            <label class="form-check-label" for="flexCheckDefault">Translate</label>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="flexCheckDefault" [checked]="language.isDuplicate" (click)="onChangeSelection($event, language, 'duplicate')">
+            <label class="form-check-label" for="flexCheckDefault">Duplicate</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <div class="form-group row">
+      <div class="col-sm-8">
+        <select class="form-control" formControlName="removedLanguage" id="removedLanguage">
+          <option *ngFor="let item of removedLanguageSource" [ngValue]="item.uid">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <button class="btn btn-primary" type="button" (click)="onAddLanguage()">Add</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <button class="btn btn-primary" type="button" (click)="onTranslateClick()">Translate</button>
+      </div>
+    </div>
+  </div>
+  
+</form>

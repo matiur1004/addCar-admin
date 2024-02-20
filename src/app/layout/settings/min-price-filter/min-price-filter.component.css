@@ -1,0 +1,9 @@
+.table td, .table th {
+  padding: 0.5rem;
+}
+.actions a {
+  padding: 0 8px;
+}
+.actions a:first-child {
+  padding-left: 0px;
+}

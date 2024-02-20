@@ -1,0 +1,19 @@
+<div id="label-list-wrapper" style="height: 400px;">
+  <ag-grid-angular #gridProperties
+                   class="ag-theme-balham"
+                   animateRows=true
+                   rowSelection='single'
+                   [frameworkComponents]="frameworkComponents"
+                   [rowData]="rowData"
+                   [columnDefs]="columnDefs"
+                   [singleClickEdit]="true"
+                   (keydown)="preventBrowserKeys($event)"
+                   (cellClicked)="updateSelectionState($event)"
+                   (cellKeyDown)="onCellKeyDown($event)"
+                   (cellFocused)="onCellFocused($event)"
+                   (cellValueChanged)="onchange($event)"
+                   (gridReady)="onGridReady($event)"
+                   (rowSelcted)="onRowSelected($event)"
+                   (gridSizeChanged)="onGridSizeChanged($event, 'metatag-list-wrapper')">
+  </ag-grid-angular>
+</div>

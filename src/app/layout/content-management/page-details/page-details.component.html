@@ -1,0 +1,138 @@
+<!-- UI for PageDetailsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<h4 *ngIf="!currentModel.uid">Create a new page</h4>
+<h4 *ngIf="currentModel.uid" class="d-inline-block">
+  Edit {{currentModel.name}}&nbsp;
+</h4>
+<span *ngIf="currentModel.uid && !currentModel.isDraft" class="badge badge-pill badge-success status-badge  align-top" style="font-size:small">Published</span>
+<span *ngIf="currentModel.uid && currentModel.isDraft" class="badge badge-pill badge-danger status-badge  align-top">Draft</span>
+<mat-drawer-container class="example-container ">
+  <mat-drawer #drawer [mode]="'side'" style="width: 400px; padding: 0 10px;" [position]="'end'">
+    <app-page-settings (languageChanged)="onLanguageChange($event)"
+                       (translationsRequested)="onTranslationsRequested($event)"
+                       (duplicationsRequested)="onDuplicationsRequested($event)"
+                       [isCountrySpecific]="currentModel?.isCountrySpecific"
+                       [pageUid]="currentModel.uid"
+                       [pageName]="currentModel.name"
+                       [isLabelsList]="false"></app-page-settings>
+  </mat-drawer>
+  <mat-drawer-content class="overflow-hidden" style="min-height: 600px;">
+    <div class="row">
+      <div class="col">
+        <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup">
+          <br />
+          <div class="d-flex justify-content-between pl-2 pr-2">
+            <div>
+              <button class="btn btn-primary" [disabled]="isSubmitting" (click)="save(false)">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Submit
+              </button>
+              &nbsp;&nbsp;
+              <button class="btn btn-draft" [disabled]="isSubmitting" (click)="save(true)">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Save to draft
+              </button>
+            </div>
+            <button mat-icon-button type="button" (click)="drawer.toggle()">
+              <i class="fas fa-arrow-right" *ngIf="drawer.opened"></i>
+              <i class="fas fa-arrow-left" *ngIf="!drawer.opened"></i>
+            </button>
+          </div>
+          <br />
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Details
+                  </a>
+                </h5>
+              </div>
+
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label for="name">Name</label>
+                      <input class="form-control" type="text" formControlName="name" placeholder="" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fields.name.errors, 'is-valid': submitted && !fields.name.errors }" />
+                      <div *ngIf="submitted && fields.name.errors" class="invalid-feedback">
+                        <div *ngIf="fields.name.errors.required">Name is required.</div>
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                      <label for="title">Title</label>
+                      <input class="form-control" type="text" formControlName="title" placeholder="" maxlength="100" />
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col">
+                      <label for="url">Url</label>
+                      <input class="form-control" type="text" formControlName="url" placeholder="" maxlength="500" [ngClass]="{ 'is-invalid': submitted && fields.url.errors, 'is-valid': submitted && !fields.url.errors }" />
+                      <small id="urlHint" class="form-text text-muted">Page url without language and the website. For example: /locations</small>
+                      <div *ngIf="submitted && fields.url.errors" class="invalid-feedback">
+                        <div *ngIf="fields.url.errors.required">Url is required.</div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <br />
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <a data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    Content
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <app-content-editor #contentEditor [inputModel]="currentText" [isDarkTheme]="needsDarkEditorTheme"></app-content-editor>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <a class=" collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Meta Tags
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <div style="border: 1px solid grey">
+                        <app-metatag-list #metatagList [decorator]="metatagGridDecorator"
+                                          [newRowPrototype]="newMetatagRowPrototype"
+                                          [metatags]="currentMetaTags"
+                                          (datasaveemitter)="gridDataSaveHandler($event)">
+                        </app-metatag-list>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+

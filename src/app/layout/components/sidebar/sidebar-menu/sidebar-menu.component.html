@@ -1,0 +1,8 @@
+<ng-container *ngFor="let item of availableItems">
+  <a [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="item.activeOptions" [routerLink]="[item.route]" [aria-label]="item.title" class="list-group-item">
+    <i class="{{item.icon}}"></i>&nbsp;
+    <span>{{item.title}}</span>
+  </a>
+</ng-container>
+
+

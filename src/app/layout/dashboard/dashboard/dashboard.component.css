@@ -1,0 +1,8 @@
+.scroll {
+  max-height: 300px;
+  overflow-y: auto;
+}
+a {
+  text-decoration: underline;
+  color: #e30613 !important;
+}

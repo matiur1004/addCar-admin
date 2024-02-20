@@ -1,0 +1,264 @@
+
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed,screen_display:isHome}">
+  <!--<app-sidebar-menu></app-sidebar-menu>-->
+  <div class="list-group sidebar-fields">
+
+    <ng-container *ngIf="wideResolution; else smallTemplate">
+      <ng-container *ngFor="let item of availableItems">
+        <a (click)="onMenuClick(item)" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="item.activeOptions" [routerLink]="[item.route]" [attr.aria-label]="item.title" class="list-group-item">
+          <i class="{{item.icon}}"></i>&nbsp;
+          <span>{{item.title}}</span>
+        </a>
+      </ng-container>
+    </ng-container>
+    <ng-template #smallTemplate>
+      <div class="nested-menu" *ngFor="let topMenu of availableTopItems">
+        <a class="list-group-item" (click)="addExpandClass(topMenu.route)">
+          <i class="fas fa-tasks"></i>&nbsp;
+          <span>{{topMenu.title}}</span>
+        </a>
+        <ul style="margin: 0px; padding-inline-start: 0px; padding-left: 0px;">
+          <li class="nested" [class.expand]="showMenu === topMenu.route">
+            <ul class="submenu">
+              <li *ngFor="let subMenu of topMenu.childItems">
+                <a (click)="onMenuClick(subMenu.route)" routerLink="{{subMenu.route}}" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                  <i class="{{subMenu.icon}}"></i>&nbsp;
+                  <span>{{subMenu.title}}</span>
+                </a>  
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+    
+    <!--<div class="list-group sidebar-fields" *ngIf="isusers">
+    <a routerLink="/users/invite-user" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fas fa-plus"></i>&nbsp;
+      <span>Create</span>
+    </a>
+    <a routerLink="/users/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fas fa-list"></i>&nbsp;
+      <span>List</span>
+    </a>
+  </div>
+  <div class="list-group sidebar-fields" *ngIf="iscontentmanagement">
+    <a routerLink="/content-management/new" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fas fa-plus"></i>&nbsp;
+      <span>Create</span>
+    </a>
+    <a routerLink="/content-management/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fas fa-list"></i>&nbsp;
+      <span>List</span>
+    </a>
+  </div>
+
+  <div class="list-group sidebar-fields" *ngIf="isVehicle">
+    <ng-container *ngIf="!isVehicleDetails && !isVehicleImages">
+      <a routerLink="/vehicles/new" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fas fa-plus"></i>&nbsp;
+        <span>Create</span>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isnew">
+      <a routerLink="/vehicles" class="list-group-item">
+        <i class="fas fa-backward"></i>&nbsp;
+        <span>Back to list</span>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isVehicleDetails && !isnew && !isVehicleImages">
+      <a routerLink="/vehicles" class="list-group-item">
+        <i class="fas fa-backward"></i>&nbsp;
+        <span>Back to list</span>
+      </a>
+      <a routerLink="/vehicles/{{vehicleDetails?.uid}}/images" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fas fa-images"></i>&nbsp;
+        <span>Pictures ({{imagesCount}})</span>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="isVehicleImages && !isnew">
+      <a routerLink="/vehicles/{{vehicleDetails?.uid}}" class="list-group-item">
+        <i class="fas fa-backward"></i>&nbsp;
+        <span>Back to Vehicle</span>
+      </a>
+    </ng-container>
+
+  </div>
+
+
+  <div class="list-group sidebar-fields" *ngIf="isfranchis">
+    <ng-container>
+      <a routerLink="/franchisees/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fas fa-list-ul"></i>&nbsp;
+        <span>Franchisees</span>
+      </a>
+      <a routerLink="/franchisees/locations/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fas fa-map-marked-alt"></i>&nbsp;
+        <span>Locations</span>
+      </a>
+      <a routerLink="/franchisees/countries/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fas fa-globe"></i>&nbsp;
+        <span>Countries</span>
+      </a>
+    </ng-container>
+
+
+
+
+
+
+
+  </div>
+
+
+  <div class="list-group sidebar-fields" *ngIf="isSettings">
+    <ng-container>
+      <a routerLink="/settings" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fas fa-language"></i>&nbsp;
+        <span>Translation Settings</span>
+      </a>
+
+    </ng-container>
+
+  </div>
+
+
+
+  <div class="list-group header-fields">
+    <div *ngIf="isLoggedIn && !collapsed" class="sidebar-caption">
+      Welcome, {{userName}}&nbsp;
+      <a [routerLink]="['/login']" (click)="logout()" aria-label="Logout"><i class="fas fa-sign-out-alt"></i></a>
+    </div>
+    <div *ngIf="isLoggedIn && collapsed" class="nested-menu">
+      <a class="list-group-item" [routerLink]="['/login']" (click)="logout()"><i class="fas fa-sign-out-alt"></i></a>
+    </div>
+
+    <div class="nested-menu" *ngIf="hasUsersAccess">
+      <a class="list-group-item" (click)="addExpandClass('Users')">
+        <i class="fas fa-users"></i>&nbsp;
+        <span>Users</span>
+      </a>
+      <ul style="margin: 0px; padding-inline-start: 0px; padding-left: 0px;">
+        <li class="nested" [class.expand]="showMenu === 'Users'">
+          <ul class="submenu">
+            <li>
+              <a routerLink="/users/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fas fa-list"></i>&nbsp;
+                <span>List</span>
+              </a>
+
+            </li>
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="nested-menu" *ngIf="hasFranchiseesAccess">
+      <a class="list-group-item" (click)="addExpandClass('Franchis')">
+        <i class="fas fa-sitemap"></i>&nbsp;
+        <span>Franchisees</span>
+      </a>
+      <ul style="margin: 0px; padding-inline-start: 0px; padding-left: 0px;">
+        <li class="nested" [class.expand]="showMenu === 'Franchis'">
+          <ul class="submenu">
+            <li>
+              <a routerLink="/franchisees/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fas fa-list"></i>&nbsp;
+                <span>List</span>
+              </a>
+
+            </li>
+
+
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+
+
+
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('contentmanagment')">
+        <i class="fas fa-tasks"></i>&nbsp;
+        <span>Content Mangement</span>
+      </a>
+      <ul style="margin: 0px; padding-inline-start: 0px; padding-left: 0px;">
+        <li class="nested" [class.expand]="showMenu === 'contentmanagment'">
+          <ul class="submenu">
+            <li>
+              <a routerLink="/content-management/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fas fa-list"></i>&nbsp;
+                <span>List</span>
+              </a>
+
+            </li>
+
+
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('vehicle')">
+        <i class="fas fa-car"></i>&nbsp;
+        <span>Vehicle</span>
+      </a>
+      <ul style="margin: 0px; padding-inline-start: 0px; padding-left: 0px;">
+        <li class="nested" [class.expand]="showMenu === 'vehicle'">
+          <ul class="submenu">
+            <li>
+              <a routerLink="/vehicles/page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fas fa-list"></i>&nbsp;
+                <span>List</span>
+              </a>
+
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('settings')">
+        <i class="fas fa-cog"></i>&nbsp;
+        <span>Settings</span>
+      </a>
+      <ul style="margin: 0px; padding-inline-start: 0px; padding-left: 0px;">
+        <li class="nested" [class.expand]="showMenu === 'settings'">
+          <ul class="submenu">
+            <li>
+              <a routerLink="/settings" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fas fa-language"></i>&nbsp;
+                <span>Translation Settings</span>
+              </a>
+
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>-->
+
+    <div *ngIf="isLoggedIn " class="sidebar-caption">
+      <div class="footer-text">
+        Technical support
+      </div>
+      <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fas fa-long-arrow-alt-{{collapsed?'right':'left'}}"></i>
+      </div>
+      <span class="link_text1">
+        Powered by
+      </span>
+      <div class="image_stantum" *ngIf="!collapsed">
+        <img src="../../assets/images/stantum_logo.png" width="20" height="20" />
+      </div>
+      <span class="link_text2">
+        <a href="https://stantum.eu/">
+          Stantum s.r.o
+        </a>
+      </span>
+
+    </div>
+  </div>
+</nav>

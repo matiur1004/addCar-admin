@@ -1,0 +1,11 @@
+::ng-deep .mat-dialog-container{
+  padding: 0px;
+}
+
+::ng-deep .mat-card-actions {
+  text-align: right;
+}
+
+button{
+  margin:5px;
+}

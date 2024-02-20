@@ -1,0 +1,16 @@
+.title {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.5em 0;
+  border-top: 0;
+}
+::ng-deep .text-input .mat-form-field-infix{
+  height: 39px;
+  padding: 0.8em 0 0.4em;
+  width: 220px;
+}
+.form-label {
+  min-width: 80px;
+}

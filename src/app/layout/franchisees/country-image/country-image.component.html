@@ -1,0 +1,18 @@
+<h4>Pictures of {{countryName}}</h4>
+<div class="images-container">
+  <div *ngIf="!!image" class="image-item">
+    <img [src]="image">
+    <div class="delete-btn" (click)="deleteImage()">Delete</div>
+  </div>
+  <div *ngIf="!image" class="image-item">
+    <div 
+         (click)="openDropZone($event)"
+         class="no-image-stub">
+      <i class="fas fa-image"></i>
+    </div>
+    <single-image-uploader
+        *ngIf="isOpenDropZone"
+        [accept]="'image/png,image/jpeg,image/webp'"
+        (onFileSelected)="uploadImage($event)"></single-image-uploader>
+  </div>
+</div>

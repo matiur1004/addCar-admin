@@ -1,0 +1,118 @@
+<!-- UI for PostDetailsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<h4 *ngIf="!currentModel?.uid">Create a new blog post</h4>
+<h4 *ngIf="currentModel?.uid">Edit the blog post</h4>
+<div>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup">
+    <div class="row d-flex align-items-center">
+      <div class="form-group col">
+        <button type="button" class="btn btn-primary" [disabled]="isSubmitting" (click)="publish()">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Publish
+        </button>&nbsp;
+        <button type="button" class="btn btn-primary" [disabled]="isSubmitting" (click)="saveDraft()">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Save as draft
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="title">Title</label>
+        <input class="form-control" type="text" formControlName="title" placeholder="" maxlength="255" [ngClass]="{ 'is-invalid': submitted && fields.title.errors, 'is-valid': submitted && !fields.title.errors }" />
+        <div *ngIf="submitted && fields.title.errors" class="invalid-feedback">
+          <div *ngIf="fields.title.errors.required">Title is required.</div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex align-items-center">
+      <div class="form-group col-md-5">
+        <label for="author">Author</label>
+        <input class="form-control" type="text" formControlName="author" id="author" placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.author.errors, 'is-valid': submitted && !fields.author.errors }" />
+        <div *ngIf="submitted && fields.author.errors" class="invalid-feedback">
+          <div *ngIf="fields.author.errors.required">Author is required.</div>
+
+        </div>
+      </div>
+
+      <div class="form-group col-md-5">
+        <label for="url">Url</label>
+        <input class="form-control" type="text" formControlName="url" placeholder="" maxlength="255" [ngClass]="{ 'is-invalid': submitted && fields.url.errors, 'is-valid': submitted && !fields.url.errors }" />
+        <div *ngIf="submitted && fields.url.errors" class="invalid-feedback">
+          <div *ngIf="fields.url.errors.required">Url is required.</div>
+
+        </div>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="minutesToRead">Minutes to read</label>
+        <input class="form-control" type="text" formControlName="minutesToRead" id="minutesToRead" placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.minutesToRead.errors, 'is-valid': submitted && !fields.minutesToRead.errors }" />
+        <div *ngIf="submitted && fields.minutesToRead.errors" class="invalid-feedback">
+          <div *ngIf="fields.minutesToRead.errors.number">Minutes to read is invalid integer number.</div>
+          <div *ngIf="fields.minutesToRead.errors.min">Minutes to read min value is 0.</div>
+          <div *ngIf="fields.minutesToRead.errors.max">Minutes to read max value is 120.</div>
+
+        </div>
+      </div>
+    </div>
+    <div class="d-flex" style="flex-direction: column;">
+      <!-- <div class="form-group col-md-3">
+        <label for="alt">Alt</label>
+        <input class="form-control" type="text" formControlName="alt" placeholder="" maxlength="255" />
+
+      </div> -->
+      <div class="images-container">
+        <div *ngIf="!!image" class="image-item">
+          <img [src]="image" style="max-height: 300px;">
+          <div class="delete-btn" (click)="deleteImage()">Delete</div>
+        </div>
+        <div *ngIf="!image" class="image-item">
+          <div (click)="openDropZone($event)"
+                class="no-image-stub">
+            <i class="fas fa-image"></i>
+          </div>
+          <single-image-uploader *ngIf="isOpenDropZone"
+                                  [accept]="'image/png,image/jpeg'"
+                                  (onFileSelected)="uploadImage($event)"></single-image-uploader>
+        </div>
+      </div>
+      <div class="form-group" style="width: 350px;">
+        <label for="alt">Alt</label>
+        <input class="form-control" type="text" formControlName="alt" placeholder="" maxlength="255" />
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group col">
+        <label for="brief">Brief</label>
+        <textarea class="form-control" type="text" formControlName="brief" placeholder="" maxlength="50000" [ngClass]="{ 'is-invalid': submitted && fields.brief.errors, 'is-valid': submitted && !fields.brief.errors }">
+        </textarea>
+        <div *ngIf="submitted && fields.brief.errors" class="invalid-feedback">
+          <div *ngIf="fields.brief.errors.required">Brief is required.</div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col">
+        <label for="content">Content</label>
+        <app-content-editor #contentEditor [inputModel]="currentText" [isDarkTheme]="true"></app-content-editor>
+
+        <input hidden class="form-control" type="text" formControlName="content" placeholder="" maxlength="2500000" [ngClass]="{ 'is-invalid': submitted && fields.content.errors, 'is-valid': submitted && !fields.content.errors }" />
+        <div *ngIf="submitted && fields.content.errors" class="invalid-feedback">
+          <div *ngIf="fields.content.errors.required">Content is required.</div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </form>
+</div>

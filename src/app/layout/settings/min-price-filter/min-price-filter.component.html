@@ -1,0 +1,56 @@
+<br />
+<h4>Min price filter for {{selectedFranchisee ? selectedFranchisee.name : ''}}</h4>
+<br />
+<div class="d-flex flex-column" style="min-height: 500px; overflow: visible;">
+    <form class="d-flex align-items-center" [formGroup]="formGroup">
+      <div class="d-flex">
+        <div class="filter-label bg-graylight border-dark font-bold justify-content-center align-items-center d-flex">Franchisee</div>
+        <select class="form-select form-control ml-2" style="width: 220px;" formControlName="franchiseeUid">
+          <option *ngFor="let item of franchisees" [value]="item.uid">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="d-flex ml-2">
+        <div class="filter-label bg-graylight border-dark font-bold justify-content-center align-items-center d-flex text-nowrap">Default Min Price </div>
+        <input class="form-control ml-2" formControlName="defaultMinPrice" type="number"
+          [ngClass]="{ 'is-invalid': formGroup.get('defaultMinPrice').invalid && formGroup.get('defaultMinPrice').touched }"/>
+      </div>
+    </form>
+    <div class="table-responsive mt-4">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th width="15%">From</th>
+              <th width="15%">To</th>
+              <th width="15%">Min Price</th>
+              <th width="55%">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of minPriceFilterSeasons; let i = index;">
+              <td>{{item.from}}</td>
+              <td>{{item.to}}</td>
+              <td>{{item.minPrice}}</td>
+              <td  class="actions">
+                <div class="d-flex">
+                  <a [routerLink]="" class="" title="Edit" [matTooltip]="'Edit'" (click)="onEdit(item, i)">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <a [routerLink]="" class="" title="Remove" [matTooltip]="'Remove'" (click)="onRemove(i)">
+                    <i class="fas fa-trash-alt"></i>
+                  </a>
+                  <a [routerLink]="" class="" title="Extend backwards" [matTooltip]="'Extend backwards'" *ngIf="item.isExtendBackwards" (click)="onBackwards(i)">
+                    <i class="fas fa-arrow-circle-left"></i>
+                  </a>
+                  <a [routerLink]="" class="" title="Extend forwards" [matTooltip]="'Extend forwards'" *ngIf="item.isExtendForwards" (click)="onForwards(i)">
+                    <i class="fas fa-arrow-circle-right"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div class="d-flex">
+      <button type="button" class="btn btn-primary w-20 mr-2" (click)="onAdd()">Add a new period</button>
+    </div>
+</div>

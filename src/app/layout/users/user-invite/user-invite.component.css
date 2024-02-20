@@ -1,0 +1,25 @@
+.placeholder-style{
+  font-size: 14px;
+  color: #918f8f;
+  font-style: italic;
+  margin: 3px 0;
+}
+.required:after {
+  content: '*';
+  color: red;
+}
+.enter_username_text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #1F1F1F;
+}
+.success_message_text {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+}

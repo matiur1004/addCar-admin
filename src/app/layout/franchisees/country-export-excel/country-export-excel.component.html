@@ -1,0 +1,21 @@
+<!-- UI for CountryExportExcelComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<form class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="onExportCSV()">
+  <div class="row">
+    <div class="col-4">
+      <input class="form-control" type="date" formControlName="date" id="date"
+             [ngClass]="{ 'is-invalid': submitted && fields.date.errors, 'is-valid': submitted && !fields.date.errors }" />
+      <div *ngIf="fields.date.errors">
+        <mat-error *ngIf="fields.date.errors.isNotOlderThan6Months">Date should older than 6 months.</mat-error>
+      </div>
+    </div>
+    <div class="col-4">
+      <button type="submit" class="btn btn-primary btn-sm mr-3" [disabled]="!isValid()">
+        Export Excel
+      </button>
+    </div>
+  </div>
+</form>

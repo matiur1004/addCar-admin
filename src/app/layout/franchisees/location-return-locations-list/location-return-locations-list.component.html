@@ -1,0 +1,19 @@
+<h4>Return Locations of {{locationName}}</h4>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th width="40%">Name</th>
+      <th>Country</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of returnlocations">
+      <td><a [routerLink]="['/franchisees/locations', item.uid]" class="link-default">{{item.name}}</a></td>
+      <td>{{item.country }}</td>
+      <td>{{item.code }}</td>
+
+    </tr>
+  </tbody>
+</table>
+

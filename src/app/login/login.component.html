@@ -1,0 +1,47 @@
+<img src="../../assets/images/logo-red.png"  style="margin:20px;"/>
+<div class="row justify-content-center align-items-center" style="min-height: 70vh; margin: 0px;">
+  <div class="card border-0" style="background-color: transparent">
+    <div class="card-header border-bottom-0" style="background-color: transparent">
+    </div>
+    <div class="card-body">
+      <div class="card">
+        <div class="card-body">
+          <form name="form" id="form" class="form-horizontal needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="login()">
+            <div *ngIf="!errors" class="alert alert-light" role="alert">
+              Welcome to AddCar Admin
+            </div>
+            <div *ngIf="errors" class="alert alert-danger" role="alert">
+              <div *ngFor="let error of errors">{{error}}</div>
+            </div>
+            <div class="input-group">
+              <label for="userName" class="sr-only">User name</label>
+             
+              <input formControlName="userName" id="userName" type="text" class="form-control" name="userName" placeholder="User" [ngClass]="{ 'is-invalid': submitted && fields.userName.errors, 'is-valid': submitted && !fields.userName.errors }" tmFocus>
+            </div>
+            <div class="input-group">
+              <label for="password" class="sr-only">Password</label>
+             
+              <input formControlName="password" id="password" type="password" class="form-control" name="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && fields.password.errors, 'is-valid': submitted && !fields.password.errors }">
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" formControlName="remember" name="remember">
+                <label class="form-check-label" for="invalidCheck">Remember me</label>
+                <a [routerLink]="['/auth/forgot-password']" class="forgot_link">Forgot Password</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <!-- Button -->
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary-login">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <i *ngIf="!isSubmitting"></i> Sign In
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

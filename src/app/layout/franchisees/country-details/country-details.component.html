@@ -1,0 +1,74 @@
+<!-- UI for CountryDetailsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<h4>Edit Country {{currentModel.name}}</h4>
+
+<div>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row">
+      <div class=col-6>
+        <div class="row">
+          <div class="form-group col">
+            <label for="refuelCharge">Refuel charge</label>
+            <input class="form-control" type="text" formControlName="refuelCharge" placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.refuelCharge.errors, 'is-valid': submitted && !fields.refuelCharge.errors }" />
+            <div *ngIf="submitted && fields.refuelCharge.errors" class="invalid-feedback">
+              <div *ngIf="fields.refuelCharge.errors.currency">Refuel charge is an invalid amount.</div>
+              <div *ngIf="fields.refuelCharge.errors.max">Refuel charge cannot be greater than 10000.</div>
+              <div *ngIf="fields.refuelCharge.errors.min">Refuel charge cannot be lesser than 0.</div>
+              <div *ngIf="fields.refuelCharge.errors.number">Refuel charge is an invalid number.</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="missingFuelCharge">Missing fuel charge</label>
+            <input class="form-control" type="text" formControlName="missingFuelCharge" placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.missingFuelCharge.errors, 'is-valid': submitted && !fields.missingFuelCharge.errors }" />
+            <div *ngIf="submitted && fields.missingFuelCharge.errors" class="invalid-feedback">
+              <div *ngIf="fields.missingFuelCharge.errors.currency">Missing fuel charge is an invalid amount.</div>
+              <div *ngIf="fields.missingFuelCharge.errors.max">Missing fuel charge cannot be greater than 100000.</div>
+              <div *ngIf="fields.missingFuelCharge.errors.min">Missing fuel charge cannot be lesser than 0.</div>
+              <div *ngIf="fields.missingFuelCharge.errors.number">Missing fuel charge is an invalid number.</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="penalty">Penalty</label>
+            <input class="form-control" type="text" formControlName="penalty" placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.penalty.errors, 'is-valid': submitted && !fields.penalty.errors }" />
+            <div *ngIf="submitted && fields.penalty.errors" class="invalid-feedback">
+              <div *ngIf="fields.penalty.errors.currency">Penalty is an invalid amount.</div>
+              <div *ngIf="fields.penalty.errors.max">Penalty cannot be greater than 100000.</div>
+              <div *ngIf="fields.penalty.errors.min">Penalty cannot be lesser than 0.</div>
+              <div *ngIf="fields.penalty.errors.number">Penalty is an invalid number.</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <app-country-export-excel></app-country-export-excel>
+        <br />
+        <app-country-allowed-countries [countries]="allowedCountries"></app-country-allowed-countries>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label for="category">Category</label>
+        <mat-select class="form-control" [placeholder]="'Select categories'" formControlName="category" id="categories" (selectionChange)="onCategoryChange($event)">
+          <input class="form-control" (input)="searchCategory($event)" type="text">
+          <mat-option class="mat-primary" *ngFor="let item of categoriesSource" [value]="item">{{item.code}}</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <app-country-category-settings #categorySettingForm (onSubmit)="onCountryCategory($event)" [invalidCategory]="invalidCategory" [category]="selectedCategory" [inputModel]="categoryDetail" *ngIf="categoryDetail"></app-country-category-settings>
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Submit
+    </button>
+  </form>
+</div>

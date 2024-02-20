@@ -1,0 +1,77 @@
+<!-- UI for UserInviteComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<div *ngIf="!sentSuccess; else success">
+  <div class="path-display">
+    <a routerLink="/users/page" [routerLinkActive]="['router-link-active']">
+      <span>Users </span>
+    </a>
+    <span> > </span>
+    <a routerLink="/users/invite-user" [routerLinkActive]="['router-link-active']">
+      <span style="font-weight:bold;"> Invite Users</span>
+    </a>
+  </div>
+  <h4 class="sub_heading-text my-2">Invite a new user</h4>
+  <p class="enter_username_text">Enter the new user's email and choose role from the list. <br> The user will receive an activation link to fill in the necessary profile data and activate the account.</p>
+  <form class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="email" class="required">Email</label>
+        <input class="form-control" type="text" formControlName="email" placeholder="" maxlength="500" [ngClass]="{ 'is-invalid': submitted && fields.email.errors, 'is-valid': submitted && !fields.email.errors }" />
+        <div *ngIf="submitted && fields.email.errors" class="invalid-feedback">
+          <div *ngIf="fields.email.errors.required">Email is required.</div>
+          <div *ngIf="fields.email.errors.email">Email is invalid email.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="role" class="required">Role</label>
+        <select class="form-control placeholder-style" formControlName="role" id="role" [ngClass]="{ 'is-invalid': submitted && fields.role.errors, 'is-valid': submitted && !fields.role.errors }">
+          <option *ngFor="let item of userRoles | userRolesEnumTranslate"
+                  [ngStyle]="{'display': authService.isUserInRole(UserRoles.FranchiseeAdmin) && (item.index == 0 ||item.index == 2)? 'none':'block'}"
+                  [attr.selected]="''" [ngValue]="item.index">{{item.name}}</option>
+        </select>
+        <div *ngIf="submitted && fields.role.errors" class="invalid-feedback">
+          <div *ngIf="fields.role.errors.required">Role is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label   *ngIf="isFranchiseeNameRequired else notrequired" for="franchiseeName" class="required">Franchisee</label>&nbsp;
+          <label *ngIf="!isFranchiseeNameRequired" for="franchiseeName">Franchisee</label>&nbsp;
+        <span *ngIf="franchiseeNameHelper.isSearching" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <input class="form-control" type="text" formControlName="franchiseeName" id="franchiseeName" maxlength="100" [ngbTypeahead]="franchiseeNameHelper.search" [resultFormatter]="franchiseeNameHelper.formatter" [inputFormatter]="franchiseeNameHelper.formatter"
+               [ngClass]="{ 'is-invalid': submitted && fields.franchiseeName.errors, 'is-valid': submitted && !fields.franchiseeName.errors }" />
+        <div *ngIf="submitted && fields.franchiseeName.errors" class="invalid-feedback">
+          <div *ngIf="fields.franchiseeName.errors.required">Franchisee is required.</div>
+          <div *ngIf="fields?.template?.errors?.invalidValue">Invalid franchise. Please select from the list.</div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Submit
+    </button>
+  </form>
+</div>
+<ng-template #success>
+  <div class="path-display">
+    <a routerLink="/users/page" [routerLinkActive]="['router-link-active']">
+      <span>Users </span>
+    </a>
+    <span> > </span>
+    <a routerLink="/users/invite-user" [routerLinkActive]="['router-link-active']">
+      <span style="font-weight:bold;"> Invite Users</span>
+    </a>
+  </div>
+
+  <div class=".success_message_text success-content"  >
+    <h3 style="color:#750404">Congratulations, user {{fields.email.value}} was successfully invited.</h3>
+    <h4>Invite a <a href="javascript:" (click)="inviteAgain()" style="color: #881111 !important; font-weight:600;">new one</a>?</h4>
+  </div>
+</ng-template>

@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-4 col-sm-12">
+    <div class="input-group mb-3">
+      <input type="text"
+             class="form-control search-text"
+             placeholder="Search vehicles"
+             [(ngModel)]="searchText"
+             (keydown)="onKeydown($event)"
+             maxlength="200"
+             aria-describedby="button-addon2" />
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchText()">
+        X
+      </button>
+    </div>
+  </div>
+  <div class="col-md-3 input-group mb-3 col-sm-6">
+    <mat-select class="form-control" [placeholder]="'Select categories'"
+                id="categories"  [(ngModel)]="selectCategories"
+                multiple>
+      <input class="form-control" (input)="searchCategory($event)" type="text">
+      <mat-option class="mat-primary" *ngFor="let item of categoriesSource" [value]="item">{{item.code}}</mat-option>
+    </mat-select>
+  </div>
+  <div class="col-md-5 col-sm-6">
+    <div class="input-group-append" style="justify-content:right">
+      <button class="btn btn-outline-secondary search-btn" type="button" id="button-addon2" (click)="performSearch()" [disabled]="!canSearch">Search</button>
+    </div>
+  </div>
+</div>

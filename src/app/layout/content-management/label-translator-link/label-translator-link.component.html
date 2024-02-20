@@ -1,0 +1,45 @@
+<!-- UI for LabelTranslatorLinkComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<div>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row">
+      <div class="form-group col">
+        <label for="translatorEmail">Translator email</label>
+        <input class="form-control" type="text" formControlName="translatorEmail" id="translatorEmail" placeholder="" maxlength="500" [ngClass]="{ 'is-invalid': submitted && fields.translatorEmail.errors, 'is-valid': submitted && !fields.translatorEmail.errors }" />
+        <div *ngIf="submitted && fields.translatorEmail.errors" class="invalid-feedback">
+          <div *ngIf="fields.translatorEmail.errors.required">Translator email is required.</div>
+          <div *ngIf="fields.translatorEmail.errors.email">Translator email is invalid email.</div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="languageUid">Language</label>
+        <select class="form-control" formControlName="languageUid" id="languageUid" [ngClass]="{ 'is-invalid': submitted && fields.languageUid.errors, 'is-valid': submitted && !fields.languageUid.errors }">
+          <option *ngFor="let item of languageUidSource" [ngValue]="item.uid">{{item.name}}</option>
+        </select>
+        <div *ngIf="submitted && fields.languageUid.errors" class="invalid-feedback">
+          <div *ngIf="fields.languageUid.errors.required">Language Selection is required.</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row"style="text-align:center;">
+      <div class="form-group col">
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Submit
+        </button>
+        &nbsp;&nbsp;
+
+        <button type="button" (click)="clear()" class="btn btn-outline-dark">Cancel</button>
+      </div>
+      </div>
+    
+
+  </form>
+</div>

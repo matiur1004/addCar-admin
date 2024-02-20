@@ -1,0 +1,96 @@
+<!-- UI for VehicleListComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<h4>Vehicles</h4>
+<br />
+<app-vehicle-search></app-vehicle-search>
+<div class="list-wrapper">
+  <div class="list-info">
+    <div *ngIf="!pageWrapper || pageWrapper.totalCount < 1">
+      Empty list
+    </div>
+    <div *ngIf="pageWrapper && pageWrapper.totalCount > 0">
+      Total items: {{pageWrapper.totalCount}}&nbsp;Current page: {{pageWrapper.currentPage}}
+    </div>
+  </div>
+  <nav *ngIf="pager.pages && pager.pages.length && pager.pages.length > 1" aria-label="Franchises page navigation bottom">
+    <ul class="pagination" style="justify-content:center">
+      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+        <a class="page-link" [routerLink]="['/vehicles/page', (pager.currentPage - 1)]" [queryParams]="{searchText: searchTextQueryParams, categories:categoriesQueryParams}"><i class="fas fa-long-arrow-alt-left"></i></a>
+      </li>
+      <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a class="page-link" [routerLink]="['/vehicles/page', page]" [queryParams]="{searchText: searchTextQueryParams,categories:categoriesQueryParams}">{{page}}</a>
+      </li>
+      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a class="page-link" [routerLink]="['/vehicles/page', (pager.currentPage + 1)]" [queryParams]="{searchText: searchTextQueryParams,categories:categoriesQueryParams}"><i class="fas fa-long-arrow-alt-right"></i></a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="table-responsive mt-4">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Model</th>
+
+        <th>Category</th>
+        <th>Gears</th>
+        <th>Passengers</th>
+        <th>Doors</th>
+        <th>CD Player</th>
+        <th>A/C</th>
+        <th>Gps</th>
+        <th>Baggage</th>
+        <th>Engine</th>
+        <th>Fuel</th>
+        <th class="text-right">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of vehicles">
+        <td><a [routerLink]="['/vehicles', item.uid]" class="link-default" title="Click to edit">{{item.modelName}}</a></td>
+        <td class="truncated-text" title="{{item.categories}}">{{item.categories}}</td>
+        <td class="center-text">{{item.gears |geartype}}</td>
+        <td class="center-text">{{item.passengers}}</td>
+        <td class="center-text">{{item.doors}}</td>
+        <td class="center-text">{{item.isCdPlayer | yesNo}}</td>
+        <td class="center-text">{{item.isAirCondition | yesNo}}</td>
+        <td class="center-text">{{item.isGps| yesNo}}</td>
+        <td class="center-text">{{item.baggage}}</td>
+        <td class="center-text">{{item.engine}}</td>
+        <td>{{item.fuel |fueltypepipe}}</td>
+        <td class="text-right">
+          <a [routerLink]="" class="link-default" (click)="cloneVehicle(item.uid)" title="Clone"><i class="far fa-clone link-add"></i></a>&nbsp;
+          <a [routerLink]="" class="link-remove" (click)="deleteVehicle(item.uid)" title="Remove"><i class="far fa-trash-alt link-remove"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <div class="list-wrapper">
+    <div class="list-info">
+      <div *ngIf="!pageWrapper || pageWrapper.totalCount < 1">
+        Empty list
+      </div>
+      <div *ngIf="pageWrapper && pageWrapper.totalCount > 0">
+        Total items: {{pageWrapper.totalCount}}&nbsp;Current page: {{pageWrapper.currentPage}}
+      </div>
+    </div>
+    <nav *ngIf="pager.pages && pager.pages.length && pager.pages.length > 1" aria-label="Franchises page navigation bottom">
+      <ul class="pagination" style="justify-content:center">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" [routerLink]="['/vehicles/page', (pager.currentPage - 1)]" [queryParams]="{searchText: searchTextQueryParams,categories:categoriesQueryParams}"><i class="fas fa-long-arrow-alt-left"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a class="page-link" [routerLink]="['/vehicles/page', page]" [queryParams]="{searchText: searchTextQueryParams,categories:categoriesQueryParams}">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" [routerLink]="['/vehicles/page', (pager.currentPage + 1)]" [queryParams]="{searchText: searchTextQueryParams,categories:categoriesQueryParams}"><i class="fas fa-long-arrow-alt-right"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

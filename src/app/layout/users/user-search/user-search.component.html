@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="input-group mb-3">
+      <input type="text"
+             class="form-control search-text"
+             placeholder="Search users by first name, last name or email"
+             [(ngModel)]="searchText"
+             (keyup.enter)="performSearch()"
+             maxlength="200"
+             aria-describedby="button-addon2"/>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary search-btn" type="button" id="button-addon2" (click)="performSearch()" [disabled]="!canSearch">Search</button>
+      </div>
+    </div>
+  </div>
+</div>

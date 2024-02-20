@@ -1,0 +1,61 @@
+<div class="container-fluid my-4 mx-4">
+  <h3>
+    Translate labels
+  </h3>
+
+  <p class="text-justify">
+    Welcome to the <span class="font-weight-bold">label translation page.</span>It's available via a unique link and is active till [date]. All labels must be translated before that date. The link will not be available after it and the work will be marked as undone.
+    <br />The system remembers your edit, so no need to specially save each row.
+  </p>
+
+  <p>
+    After completing the translation of all labels, please click "Submit" to let addCar know you're finished.
+    <br />
+    <span class="font-weight-bold">Warning:</span> the link will not be available after submitting, so make sure you click it when all is done.
+  </p>
+  <div class="col-10">
+    <div class="list-wrapper">
+      <div class="list-info">
+        <div *ngIf="pageWrapper && pageWrapper.totalCount > 0">
+          Total items: {{pageWrapper.totalCount}}&nbsp;Current page: {{pageWrapper.currentPage}}
+        </div>
+      </div>
+      <nav *ngIf="pager.pages && pager.pages.length && pager.pages.length > 1"
+           aria-label="Franchises page navigation bottom">
+        <ul class="pagination mt-1">
+          <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+            <a class="page-link"
+               [routerLink]="['/interpreter-view',linkUid, 'page', (pager.currentPage - 1)]">
+              <i class="fas fa-long-arrow-alt-left"></i>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a class="page-link" [routerLink]="['/interpreter-view',linkUid,'page', page]">{{page}}</a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a class="page-link"
+               [routerLink]="['/interpreter-view', linkUid,'page', (pager.currentPage + 1)]">
+              <i class="fas fa-long-arrow-alt-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="table-responsive">
+      <div style="border: 1px solid grey">
+        <ng-container *ngIf="pages">
+          <app-interpreter-view-label-list #metatagList [decorator]="labelGridDecorator"
+                                           [newRowPrototype]="newLabelRowPrototype"
+                                           [labels]="pages"
+                                           [language]="selectedLanguage"
+                                           (childButtonEvent)="receivedMessageHandler($event)"
+                                           (datasaveemitter)="gridDataSaveHandler($event)">
+          </app-interpreter-view-label-list>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</div>
+

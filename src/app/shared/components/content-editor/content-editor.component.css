@@ -1,0 +1,9 @@
+::ng-deep .jodit-container  {
+    position: relative;
+}
+::ng-deep .jodit_sticky>.jodit-toolbar__box {
+    position: fixed;
+    top: 98px !important;
+    z-index: 100;
+    background-color: #fff;
+  }

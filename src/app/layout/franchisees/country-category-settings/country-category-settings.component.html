@@ -1,0 +1,149 @@
+<!-- UI for CountryCategorySettingsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<div>
+  <h4 *ngIf="category.code == 'All Categories'">Values used by default</h4>
+  <hr>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="form-group col">
+            <label for="modelName">Model name</label>
+            <input class="form-control" type="text" formControlName="modelName"  placeholder="" maxlength="100"  />
+                  
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="guaranteedModel">Guaranteed model</label>
+            <input class="form-control" type="text" formControlName="guaranteedModel"  placeholder="" maxlength="100"  />
+                  
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="guaranteedYear">Guaranteed year</label>
+            <input class="form-control" type="text" formControlName="guaranteedYear"  placeholder="" maxlength="4"  />
+                  
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="mileageApplication">Mileage application</label>
+            <input class="form-control" type="text" formControlName="mileageApplication"  placeholder="" maxlength="50"  />
+                  
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="fuelPolicy">Fuel policy</label>
+            <input class="form-control" type="text" formControlName="fuelPolicy"  placeholder="" maxlength="50"  />
+                  
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="form-group col">
+                <label for="doors">Doors</label>
+                <input class="form-control" type="text" formControlName="doors"  placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.doors.errors, 'is-valid': submitted && !fields.doors.errors }" />
+                        <div *ngIf="submitted && fields.doors.errors" class="invalid-feedback">
+                  <div *ngIf="fields.doors.errors.number">Doors is invalid integer number.</div>
+              
+                </div>	  
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="form-group col">
+                <label for="passengers">Passengers</label>
+                <input class="form-control" type="text" formControlName="passengers"  placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.passengers.errors, 'is-valid': submitted && !fields.passengers.errors }" />
+                        <div *ngIf="submitted && fields.passengers.errors" class="invalid-feedback">
+                  <div *ngIf="fields.passengers.errors.number">Passengers is invalid integer number.</div>
+              
+                </div>	  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="form-group col">
+                <label for="minDriverAge">Min driver age</label>
+                <input class="form-control" type="text" formControlName="minDriverAge"  placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.minDriverAge.errors, 'is-valid': submitted && !fields.minDriverAge.errors }" />
+                        <div *ngIf="submitted && fields.minDriverAge.errors" class="invalid-feedback">
+                  <div *ngIf="fields.minDriverAge.errors.number">Min driver age is invalid integer number.</div>
+                  <div *ngIf="fields.minDriverAge.errors.max">Min driver age cannot be greater than 200.</div>
+                  <div *ngIf="fields.minDriverAge.errors.min">Min driver age cannot be lesser than 0.</div>
+              
+                </div>	  
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="form-group col">
+                <label for="maxDriverAge">Max driver age</label>
+                <input class="form-control" type="text" formControlName="maxDriverAge"  placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.maxDriverAge.errors, 'is-valid': submitted && !fields.maxDriverAge.errors }" />
+                        <div *ngIf="submitted && fields.maxDriverAge.errors" class="invalid-feedback">
+                  <div *ngIf="fields.maxDriverAge.errors.number">Max driver age is invalid integer number.</div>
+                  <div *ngIf="fields.maxDriverAge.errors.max">Max driver age cannot be greater than 200.</div>
+                  <div *ngIf="fields.maxDriverAge.errors.min">Max driver age cannot be lesser than 0.</div>
+              
+                </div>	  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="form-group col">
+                <label for="fourWD">Four wd</label>
+                <input class="form-control" type="text" formControlName="fourWD"  placeholder="" maxlength="50"  />
+                      
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="form-group col">
+                <label for="deposit">Deposit</label>
+                <input class="form-control" type="text" formControlName="deposit"  placeholder="" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.deposit.errors, 'is-valid': submitted && !fields.deposit.errors }" />
+                        <div *ngIf="submitted && fields.deposit.errors" class="invalid-feedback">
+                  <div *ngIf="fields.deposit.errors.currency">Deposit is an invalid amount.</div>
+                  <div *ngIf="fields.deposit.errors.max">Deposit cannot be greater than 100000.</div>
+                  <div *ngIf="fields.deposit.errors.min">Deposit cannot be lesser than 0.</div>
+                  <div *ngIf="fields.deposit.errors.number">Deposit is an invalid number.</div>
+                </div>	  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.valid">
+          Submit
+        </button>
+      </div> -->
+      
+    </div>
+    <!-- <div class="row">
+    <div class="form-group col">
+      <label for="categoryUID">Category</label>
+      <select  class="form-control"  formControlName="categoryUID" id="categoryUID" >
+        <option *ngFor="let item of categoryUIDSource" [ngValue]="item.code">{{item.code}}</option>
+      </select>	  
+      		  
+    </div>
+  </div> -->
+  
+  </form>
+</div>

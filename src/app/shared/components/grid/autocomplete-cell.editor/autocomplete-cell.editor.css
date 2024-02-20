@@ -1,0 +1,12 @@
+::ng-deep ngb-typeahead-window {
+    position:fixed!important;
+    left:auto!important;
+}
+
+input {
+  width: 100%;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 2px;
+  padding-right: 2px;
+}

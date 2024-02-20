@@ -1,0 +1,22 @@
+<h4>Pictures</h4>
+<div class="images-container">
+  <ng-container *ngFor="let vehicleImage of (vehicleImages$ | async); let i = index">
+    <div *ngIf="vehicleImage.imageFileUrl !== null" class="image-item">
+      <img [src]="vehicleImage.imageFileUrl">
+      <div class="delete-btn" (click)="deleteImage(vehicleImage.vehicleUID, vehicleImage.uid)">Delete</div>
+    </div>
+    <div *ngIf="vehicleImage.imageFileUrl === null" class="image-item">
+      <div
+        *ngIf="sequenceNo !== i"
+        (click)="openDropZone($event, i)"
+        class="no-image-stub">
+        <i class="fas fa-image"></i>
+      </div>
+      <single-image-uploader
+        *ngIf="isOpenDropZone && sequenceNo === i"
+        [accept]="'image/png,image/jpeg,image/webp'"
+        (onFileSelected)="uploadVehicleImage($event)"
+        ></single-image-uploader>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,51 @@
+<!-- UI for TranslationSettingsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+<br />
+<h4>Translation Options</h4>
+<br />
+<span style="font-weight:700">All Languages</span>
+<div class="table-responsive mt-4">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th width="40%">Language</th>
+        <th width="30%">Slug</th>
+        <th class="right-text">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of languages">
+        <td>{{item.name}}</td>
+        <td>{{item.code}}</td>
+        <td  class="right-text">
+          <div *ngIf="item.uid!=defaultlanguageuid">
+            <a [routerLink]="" class="link-remove" (click)="deletelanguage(item.uid)" title="Remove">
+              <i class="far fa-trash-alt link-remove"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+  <div style="font-weight:700;">
+    Choose Language
+  </div>
+  <div class="row">
+    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-12">
+      <select  class="form-control" formControlName="language" id="language">
+        <option *ngFor="let item of chooselanguages" [ngValue]="item.uid">{{item.name}}</option>
+      </select>
+    </div>
+    <div class="form-group col-lg-5 col-md-4 col-sm-6 col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+        <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Add
+      </button>
+    </div>
+  </div>
+  
+</form>

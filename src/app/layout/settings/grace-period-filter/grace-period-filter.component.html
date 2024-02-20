@@ -1,0 +1,20 @@
+<br />
+<h4>Grace period filters per franchisee</h4>
+<br />
+<h6>Hours between reservation and pick up</h6>
+<br />
+<button type="button" class="btn btn-primary w-20 mr-2" (click)="onSubmit()">Submit</button>
+<div class="d-flex flex-col mt-2">
+  <div class="d-flex align-items-center">
+    <span class="text-nowrap mr-2">Default value: </span>
+    <input class="form-control" [(ngModel)]="currentFilter.defaultValue"/>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-4" *ngFor="let filter of currentFilter.franchiseeFilters">
+    <div class="d-flex align-items-center mb-2">
+      <span class="text-nowrap mr-2 franchisee-title">{{filter.franchiseeName}}: </span>
+      <input class="form-control" [(ngModel)]="filter.value"/>
+    </div>
+  </div>
+</div>

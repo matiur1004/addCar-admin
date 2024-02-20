@@ -1,0 +1,12 @@
+::ng-deep .ag-root-wrapper {
+    border: none !important;
+  }
+  
+  .attributes-style{
+      width: 100%;
+      height: 300px;
+  }
+  
+  .ag-theme-balham{
+    height: 100% !important;
+  }

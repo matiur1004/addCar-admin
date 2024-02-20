@@ -1,0 +1,112 @@
+<!-- UI for LocationDetailsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<h4>Edit Location {{currentModel.name}}</h4>
+<div>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row">
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-4 col-md-4 col-sm-6 col-12">
+        <label for="countryName">Country</label>
+        <input class="form-control" type="text" formControlName="countryName" maxlength="50" />
+
+      </div>
+      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+        <label for="locationType">Location type</label>
+        <input class="form-control" type="text" formControlName="locationType" maxlength="50" />
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-4 col-md-4 col-sm-6 col-12">
+        <label for="locationName">Location Name</label>
+        <div class="form-check form-check-inline float-right">
+          <input class="form-check-input" type="checkbox" formControlName="isShownOnSite" id="isShownOnSite">
+          <label class="form-check-label" for="isShownOnSite">Show on site</label>
+        </div>
+
+        <input class="form-control" type="text" formControlName="locationName" maxlength="50" />
+      </div>
+      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+        <label for="rate">Location Rate</label>
+        <input class="form-control" type="text" formControlName="rate" maxlength="4" [ngClass]="{ 'is-invalid': submitted && fields.rate.errors, 'is-valid': submitted && !fields.rate.errors }"/>
+        <div *ngIf="submitted && fields.rate.errors" class="invalid-feedback">
+          <div *ngIf="fields.rate.errors.required">Location rate is required.</div>
+          <div *ngIf="fields.rate.errors.number">Location rate must be a number.</div>
+          <div *ngIf="fields.rate.errors.min">Location rate min value is 0.</div>
+          <div *ngIf="fields.rate.errors.max">Location rate max value is 2000.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-4 col-md-4 col-sm-12 col-12">
+        <label for="address">Address</label>
+        <input class="form-control" type="text" formControlName="address" maxlength="500" />
+      </div>
+      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+        <label for="longitude">Longitude</label>
+        <input class="form-control" type="text" formControlName="longitude" maxlength="50" />
+
+      </div>
+      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+        <label for="latitude">Latitude</label>
+        <input class="form-control" type="text" formControlName="latitude" maxlength="50" />
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-4 col-md-4 col-sm-6 col-12">
+        <label for="phone">Phone</label>
+        <input class="form-control" type="text" formControlName="phone" maxlength="50" />
+
+      </div>
+      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+        <label for="mobilePhone">Mobile phone</label>
+        <input class="form-control" type="text" formControlName="mobilePhone" maxlength="50" />
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-4 col-md-4 col-sm-6 col-12">
+        <label for="timezone">Timezone</label>
+        <input class="form-control" type="text" formControlName="timezone" maxlength="3" [ngClass]="{ 'is-invalid': submitted && fields.timezone.errors, 'is-valid': submitted && !fields.timezone.errors }"/>
+        <div *ngIf="submitted && fields.timezone.errors" class="invalid-feedback">
+          <div *ngIf="fields.timezone.errors.required">Timezone is required.</div>
+          <div *ngIf="fields.timezone.errors.number">Timezone must be a number.</div>
+          <div *ngIf="fields.timezone.errors.min">Timezone min value is -12.</div>
+          <div *ngIf="fields.timezone.errors.max">Timezone max value is 12.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-4 col-md-4 col-sm-6 col-12">
+
+        <label for="airportCode">Airport code</label>
+        <input class="form-control" type="text" formControlName="airportCode" maxlength="50" />
+
+      </div>
+      <div class="form-group col-lg-3 col-md-3 col-sm-6 col-12">
+        <label for="rateCode">Rate code</label>
+        <input class="form-control" type="text" formControlName="rateCode" maxlength="50" [ngClass]="{ 'is-invalid': submitted && fields.rateCode.errors, 'is-valid': submitted && !fields.rateCode.errors }"/>
+        <div *ngIf="submitted && fields.rateCode.errors" class="invalid-feedback">
+          <div *ngIf="fields.rateCode.required">Rate code is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="info">Info</label>
+      <textarea class="form-control" id="info" name="info" formControlName="info" rows="4" maxlength="50"></textarea>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Submit
+    </button>
+     
+  </form>
+</div>

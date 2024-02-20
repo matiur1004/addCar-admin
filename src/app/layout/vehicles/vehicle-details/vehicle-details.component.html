@@ -1,0 +1,116 @@
+<!-- UI for VehicleDetailsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<h4 *ngIf="currentModel?.uid">Edit vehicle {{currentModel.modelName}}</h4>
+<h4 *ngIf="!currentModel?.uid">Create a new vehicle</h4>
+<div>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="modelName">Model</label>
+        <input class="form-control" type="text" formControlName="modelName" placeholder="" maxlength="100"
+               [ngClass]="{ 'is-invalid': submitted && fields.modelName.errors, 'is-valid': submitted && !fields.modelName.errors }" />
+        <div *ngIf="submitted && fields.modelName.errors" class="invalid-feedback">
+          <div *ngIf="fields.modelName.errors.required">Model is required.</div>
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="categories">Categories</label>
+        <mat-select disableOptionCentering panelClass="my-panel-class" [formControl]="categoriesFormControl" class="form-control" [placeholder]="'Select categories'"
+                    id="categories" multiple
+                    [ngClass]="{ 'is-invalid': submitted && categoriesFormControl.errors, 'is-valid': submitted && !categoriesFormControl.errors }">
+          <input class="form-control" (input)="searchCategory($event)" type="text">
+          <mat-option class="mat-primary" *ngFor="let item of categoriesSource" [value]="item.code">{{item.code}}</mat-option>
+        </mat-select>
+        <div *ngIf="submitted && categoriesFormControl.errors" class="invalid-feedback">
+          <div *ngIf="categoriesFormControl.errors.required">Categories is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="modelName">Engine</label>
+        <input class="form-control" type="number" formControlName="engine" placeholder=""
+               [ngClass]="{ 'is-invalid': submitted && fields.engine.errors, 'is-valid': submitted && !fields.engine.errors }" />
+        <div *ngIf="submitted && fields.engine.errors" class="invalid-feedback">
+          <div *ngIf="fields.engine.errors.number">Engine must be a number</div>
+          <div *ngIf="fields.engine.errors.min">Engine must be at least 0.1</div>
+          <div *ngIf="fields.engine.errors.max">Engine cannot be greater than 20</div>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex align-items-center">
+      <div class="form-group col-md-2">
+        <label for="gears">Gears</label>
+        <select class="form-control" formControlName="gears" id="gears">
+          <option *ngFor="let item of (gearTypes | keyvalue) | slice:0:4"
+                  [value]="item.key">
+            {{item.value}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="passengers">Passengers</label>
+        <select class="form-control" formControlName="passengers" id="passengers">
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="doors">Doors</label>
+        <select class="form-control" formControlName="doors" id="doors">
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="baggage">Baggage</label>
+        <select class="form-control" formControlName="baggage" id="baggage">
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="fuel">Fuel</label>
+        <select class="form-control" formControlName="fuel" id="fuel">
+          <option *ngFor="let item of (fuelTypes | keyvalue) | slice:0:4" [value]="item.key">{{item.value}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <input type="checkbox" formControlName="isUsb" id="isUsb">&nbsp;
+        <label for="isUsb">USB</label>
+      </div>
+      <div class="form-group col-md-2">
+        <input type="checkbox" formControlName="isAirCondition" id="isAirCondition"> &nbsp;
+        <label for="isAirCondition">Air conditioning</label>
+      </div>
+      <div class="form-group col-md-2">
+        <input type="checkbox" formControlName="isGps" id="isGps">&nbsp;
+        <label for="isGps">GPS</label>
+      </div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Submit
+    </button>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+<!-- UI for FranchiseDetailsComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+
+<div class="container">
+  <div >
+    <a routerLink="/users/page" [routerLinkActive]="['router-link-active']">
+      <span>Users </span>
+    </a>
+    <span> > </span>
+    <a routerLink="/users/uid" [routerLinkActive]="['router-link-active']">
+      <span style="font-weight:bold;">{{currentModel?.firstName}} {{currentModel?.lastName}}</span>
+    </a>
+  </div>
+  <h4 class="sub_heading-text mb-4 mt-3">User profile of {{currentModel?.email}}</h4>
+  <div class="row mb-3">
+    <div class="col-lg-3" *ngIf="profEditComponent">
+      <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoSAu9lNsLM858HKEYiH57R-0EkBxWS64Nzg&usqp=CAU">
+    </div>
+    <div class="col-lg-9">
+      <div class="d-flex flex-column justify-content-between h-100">
+        <div class="row">
+          <div class="col">
+            <div class="mb-1">Organization: <b>{{currentModel?.organizationName}}</b></div>
+            <div class="mb-3">Role: <b>{{currentModel?.role | userRolesTranslate}}</b></div>
+          </div>
+        </div>
+        <div class="row align-items-end" *ngIf="profEditComponent">
+          <form>
+            <!--              TODO: Upload image logic-->
+            <i>
+            
+              <input type="file" alt="Select">
+            </i>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-9">
+      <app-user-profile-edit #profEditComponent [inputModel]="currentModel"></app-user-profile-edit>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-12">
+      <button type="button" (click)="save()" class="btn btn-primary mr-3" [disabled]="isSubmitting">
+        <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Submit
+      </button>
+      <button type="button" class="btn btn-outline-dark mr-3" [routerLink]="['/users/page/1']">Cancel</button>
+      <button type="button" class="btn btn-outline-dark btn-change-password" *ngIf="isCurrentProfile === true" (click)="openChangePasswordModal()">Change Password</button>
+    </div>
+  </div>
+</div>

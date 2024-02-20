@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-md-3 input-group mb-3 col-sm-6">
+    <mat-select class="form-control" id="franchisees" [(ngModel)]="selectedFranchisee" (selectionChange)="onFranchiseeChange($event)">
+      <mat-option class="mat-primary" *ngFor="let item of franchiseesSource" [value]="item">{{item.websiteDomain}}</mat-option>
+    </mat-select>
+  </div>
+</div>

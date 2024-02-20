@@ -1,0 +1,69 @@
+<h4>Vehicles of {{currentModel.locationName}}</h4>
+<app-add-location-vehicle></app-add-location-vehicle>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Model</th>
+        <th>Gears</th>
+        <th>Passengers</th>
+        <th>Doors</th>
+        <th>CD Player</th>
+        <th>A/C</th>
+        <th>Gps</th>
+        <th>Baggage</th>
+        <th>Engine</th>
+        <th>Fuel</th>
+        <!-- <th>Action</th> -->
+      </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let category of currentModel?.categories; let i = index;">
+            <tr>
+                <td class="d-flex align-items-center">
+                    <a [ngClass]="{'fa-minus': category.isSelected == true, 'fa-plus': !category.isSelected}"
+                        class="fas mr-2 cursor-pointer" (click)="onSelectCategory(category, i)"></a>
+                    {{category.categoryName}}
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <!-- <td></td> -->
+            </tr>
+            <ng-container *ngIf="category.isSelected">
+                <tr *ngFor="let vehicle of category.vehicles">
+                    <td></td>
+                    <!-- <td>{{item.modelName}}</td> -->
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="form-check">
+                              <input [checked]="vehicle.isSelected" class="form-check-input" type="checkbox" (click)="onChangeSelection($event, category, vehicle)" id="flexCheckDefault">
+                              <label class="form-check-label" for="flexCheckDefault">
+                                {{vehicle.modelName}}
+                              </label>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{vehicle.gears}}</td>
+                    <td>{{vehicle.passengers}}</td>
+                    <td>{{vehicle.doors}}</td>
+                    <td>{{vehicle.isCdPlayer ? 'Yes': 'No'}}</td>
+                    <td>{{vehicle.isAirCondition ? 'Yes': 'No'}}</td>
+                    <td>{{vehicle.isGps ? 'Yes': 'No'}}</td>
+                    <td>{{vehicle.baggage}}</td>
+                    <td>{{vehicle.engine}}</td>
+                    <td>{{vehicle.fuel}}</td>
+                    <!-- <td></td> -->
+                </tr>
+            </ng-container>
+            
+        </ng-container>
+    </tbody>
+</table>

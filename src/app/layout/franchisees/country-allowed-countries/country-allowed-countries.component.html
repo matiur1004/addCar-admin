@@ -1,0 +1,91 @@
+<!-- UI for CountryAllowedCountriesComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<!--<div *ngIf="!pageWrapper || pageWrapper.totalCount < 1">
+  Empty list
+</div>-->
+<!--<div *ngIf="pageWrapper && pageWrapper.totalCount > 0">
+  Total items: {{pageWrapper.totalCount}}&nbsp;Current page: {{pageWrapper.currentPage}}
+</div>
+<nav *ngIf="pager.pages && pager.pages.length && pager.pages.length > 1" aria-label=" page navigation top">-->
+  <!-- pager -->
+  <!--<ul class="pagination">
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(1)">First</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(page)">{{page}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(pager.currentPage + 1)">Next</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(pager.totalPages)">Last</a>
+    </li>
+  </ul>
+</nav>
+<div class="row list-entry" *ngFor="let item of ">
+  <div class="col-lg-12">
+    <h4><a [routerLink]="['', ]"></a></h4>
+
+  </div>
+</div>
+<nav *ngIf="pager.pages && pager.pages.length && pager.pages.length > 1" aria-label=" page navigation bottom">-->
+  <!-- pager -->
+  <!--<ul class="pagination">
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(1)">First</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(page)">{{page}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(pager.currentPage + 1)">Next</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" [routerLink]="" (click)="gotoPage(pager.totalPages)">Last</a>
+    </li>
+  </ul>
+</nav>-->
+<h5>Allowed Countries</h5>
+<form class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="addCountry()">
+  <div class="row">
+    <div class="col-9">
+      <input class="form-control" type="text" formControlName="country" id="country" maxlength="100" [ngbTypeahead]="countryHelper.search" [resultFormatter]="countryHelper.formatter" [inputFormatter]="countryHelper.formatter"
+               [ngClass]="{ 'is-invalid': submitted && fields.country.errors, 'is-valid': submitted && !fields.country.errors }" />
+    </div>
+    <div class="col-3">
+      <button type="submit" class="btn btn-primary btn-sm mr-3" [disabled]="!isValid()">
+        Add
+      </button>
+    </div>
+  </div>
+</form>
+<div class="table-container mt-2">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let country of countries; let i = index;">
+          <td>{{country.name}}</td>
+          <td>
+            <a href="javascript:void(0);" class="" (click)="delete(country.uid, i)">
+              <i class="fas fa-trash"></i>&nbsp;
+            </a>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>

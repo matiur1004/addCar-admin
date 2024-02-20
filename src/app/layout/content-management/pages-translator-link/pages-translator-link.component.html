@@ -1,0 +1,50 @@
+<!-- UI for LabelTranslatorLinkComponent
+
+ Initially powered by Stantum Angular Utils.
+ Want to dramatically increase your development speed too? Visit https://www.stantum.cz/development-automation -->
+
+<div>
+  <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row" style="text-align:center;">
+      <div class="form-group col">
+        <h3>
+          Translate {{pageName}}
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="interpreterEmail">Interpreter Email</label>
+        <input class="form-control" type="text" formControlName="interpreterEmail" id="interpreterEmail" placeholder="" maxlength="500" [ngClass]="{ 'is-invalid': submitted && fields.interpreterEmail.errors, 'is-valid': submitted && !fields.interpreterEmail.errors }" />
+        <div *ngIf="submitted && fields.interpreterEmail.errors" class="invalid-feedback">
+          <div *ngIf="fields.interpreterEmail.errors.required">Interpreter Email is required.</div>
+          <div *ngIf="fields.interpreterEmail.errors.email">Interpreter Email is invalid email.</div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <label for="languageUid">Language</label>
+        <select class="form-control" formControlName="languageUid" id="languageUid" [ngClass]="{ 'is-invalid': submitted && fields.languageUid.errors, 'is-valid': submitted && !fields.languageUid.errors }" >
+          <option *ngFor="let item of languageUidSource" [ngValue]="item.uid" >{{item.name}}</option>
+        </select>
+        <div *ngIf="submitted && fields.languageUid.errors" class="invalid-feedback">
+          <div *ngIf="fields.languageUid.errors.required">Language Selection is required.</div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="text-align:center;">
+      <div class="form-group col">
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Submit
+        </button>
+        &nbsp;&nbsp;
+
+        <button type="button" (click)="clear()" class="btn btn-outline-dark">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>

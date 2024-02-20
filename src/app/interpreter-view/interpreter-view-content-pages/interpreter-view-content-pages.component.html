@@ -1,0 +1,38 @@
+<div class="container-fluid my-4 mx-4">
+  <h3>
+    Translate Pages
+  </h3>
+
+  <p class="text-justify">
+    Welcome to the <span class="font-weight-bold">content translation page.</span>  It's available via a unique link and is active till [date]. The text must be translated before that date. This link will not be available after it and the work will be marked as undone.
+    <br />
+
+    To save your work without sending to addCar, click<span class="font-weight-bold"> Save to draft.</span> For sending to addCar, please click <span class="font-weight-bold">Submit</span>.
+  </p>
+  <p>
+    <span class="font-weight-bold">Warning:</span> the link will not be available after submitting, so make sure you click it when all is done.
+  </p>
+  <h3><a  href="interpreter-view-englishtext-pages/4b741284-cf13-4883-9e58-08cb5c13d6e4" target="_blank" class="link">Open English text for translation</a></h3>
+  <br />
+  <div class="row">
+    <button type="submit" class="btn btn-primary">
+      <span class="" role="status" aria-hidden="true"></span>
+      Submit
+    </button>
+    &nbsp; &nbsp; &nbsp;
+    <button type="submit" class="btn btn-outline-dark" >
+      <span  class="" role="status" aria-hidden="true"></span>
+      Save Draft
+    </button>
+  </div>
+  <br />
+  <br />
+  <div class="row">
+    <div class="col-10">
+      <app-interpreter-view-content-editor
+        #contentEditor [inputModel]="textModel" [isDarkTheme]="needsDarkEditorTheme">
+      </app-interpreter-view-content-editor>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,27 @@
+.image-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+}
+
+.image-item img {
+  width: 350px;
+  height: auto;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  vertical-align: middle;
+  margin-top: -1rem;
+  margin-left: 0.5rem;
+}

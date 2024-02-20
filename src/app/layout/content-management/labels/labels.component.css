@@ -1,0 +1,10 @@
+.selectcount {
+  color: red;
+  font-weight: 600;
+}
+.clearlink {
+  font-size:20px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline
+}

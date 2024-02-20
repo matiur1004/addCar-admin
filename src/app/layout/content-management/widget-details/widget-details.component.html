@@ -1,0 +1,62 @@
+<mat-drawer-container class="example-container ">
+    <mat-drawer #drawer [mode]="'side'" style="width: 400px; padding: 0 10px;" [position]="'end'">
+        <app-page-settings (languageChanged)="onLanguageChange($event)"
+                           (translationsRequested)="onTranslationsRequested($event)"
+                           (duplicationsRequested)="onDuplicationsRequested($event)"
+                           [isCountrySpecific]="currentModel?.isCountrySpecific"
+                           [pageUid]="currentModel.uid"
+                           [pageName]="currentModel.name"
+                           [isLabelsList]="false"></app-page-settings>
+    </mat-drawer>
+    <mat-drawer-content class="overflow-hidden" style="min-height: 600px;">
+        <div class="row">
+            <div class="col">
+                <form *ngIf="currentModel" class="needs-validation" novalidate [formGroup]="formGroup">
+                    <div class="d-flex justify-content-between pl-2 pr-2 mt-2">
+                        <div style="min-width: 120px;"></div>
+                        <div>
+                            <h4 *ngIf="!currentModel.uid">Create a new widget</h4>
+                            <h4 *ngIf="currentModel.uid" class="d-inline-block">
+                                Edit {{currentModel.name}}&nbsp;
+                            </h4>
+                        </div>
+                        <div class="d-flex">
+                            <button class="btn btn-primary" [disabled]="isSubmitting" (click)="save(false)">
+                                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Save
+                            </button>
+                            <button mat-icon-button type="button" (click)="drawer.toggle()" class="ml-2">
+                                <i class="fas fa-arrow-right" *ngIf="drawer.opened"></i>
+                                <i class="fas fa-arrow-left" *ngIf="!drawer.opened"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card m-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                                  <label for="name">Name</label>
+                                  <input class="form-control" type="text" formControlName="name" placeholder="Name" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fields.name.errors, 'is-valid': submitted && !fields.name.errors }" />
+                                  <div *ngIf="submitted && fields.name.errors" class="invalid-feedback">
+                                    <div *ngIf="fields.name.errors.required">Name is required.</div>
+                                  </div>
+                                </div>
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-12">
+                                  <label for="title">Notes</label>
+                                  <input class="form-control" type="text" formControlName="notes" placeholder="" maxlength="100" placeholder="Notes" />
+            
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <app-content-editor #contentEditor [inputModel]="currentText" [isDarkTheme]="needsDarkEditorTheme"></app-content-editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
